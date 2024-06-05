@@ -1,0 +1,51 @@
+version: '3'
+
+includes:
+  proxy:
+    taskfile: ../py-keyring-proxy/taskfile.yml
+    dir: ../py-keyring-proxy
+  cli:
+    taskfile: ../py-keyring-proxy-cli/taskfile.yml
+    dir: ../py-keyring-proxy-cli
+  env:
+    taskfile: ../py-keyring-proxy-env/taskfile.yml
+    dir: ../py-keyring-proxy-env
+  stdio:
+    taskfile: ../py-keyring-proxy-stdio/taskfile.yml
+    dir: ../py-keyring-proxy-stdio
+  socket:
+    taskfile: ../py-keyring-proxy-socket/taskfile.yml
+    dir: ../py-keyring-proxy-socket
+
+tasks:
+  init:
+    cmds:
+      - task: proxy:init
+      - task: cli:init
+      - task: env:init
+      - task: stdio:init
+      - task: socket:init
+  devrel:
+    cmds:
+      - task: proxy:update
+      - task: proxy:devrel
+      - task: cli:update
+      - task: cli:devrel
+      - task: env:update
+      - task: env:devrel
+      - task: stdio:update
+      - task: stdio:devrel
+      - task: socket:update
+      - task: socket:devrel
+  release:
+    cmds:
+      - task: proxy:update
+      - task: proxy:release
+      - task: cli:update
+      - task: cli:release
+      - task: env:update
+      - task: env:release
+      - task: stdio:update
+      - task: stdio:release
+      - task: socket:update
+      - task: socket:release

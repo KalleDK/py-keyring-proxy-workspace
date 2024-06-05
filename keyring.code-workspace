@@ -1,0 +1,30 @@
+{
+	"folders": [
+		{
+			"name": "Devcontainer",
+			"path": ".devcontainer"
+		},
+		{
+			"name": "Proxy",
+			"path": "py-keyring-proxy"
+		},
+		{
+			"name": "Cli",
+			"path": "py-keyring-proxy-cli"
+		},
+		{
+			"name": "EnvBackend",
+			"path": "py-keyring-proxy-env"
+		},
+		{
+			"name": "SocketBackend",
+			"path": "py-keyring-proxy-socket"
+		},
+		{
+			"name": "StdioBackend",
+			"path": "py-keyring-proxy-stdio"
+		}
+		
+	],
+	"settings": {}
+}

@@ -1,0 +1,21 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "Python 3",
+	"build": { "dockerfile": "Dockerfile" },
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"charliermarsh.ruff",
+				"ms-python.black-formatter",
+        		"ms-python.python",
+				"ms-python.mypy-type-checker",
+				"task.vscode-task",
+				"tamasfe.even-better-toml",
+				"ryanluker.vscode-coverage-gutters"
+			]
+		}
+	},
+	"postCreateCommand": "./.devcontainer/post-create.sh",
+	"onCreateCommand": "./.devcontainer/on-create.sh"
+}
