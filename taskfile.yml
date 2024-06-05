@@ -1,0 +1,35 @@
+version: '3'
+
+tasks:
+  clone_stdio:
+    cmds:
+      - git clone https://github.com/KalleDK/py-keyring-proxy-stdio.git
+    status:
+      - test -d py-keyring-proxy-stdio
+  clone_socket:
+    cmds:
+      - git clone https://github.com/KalleDK/py-keyring-proxy-socket.git
+    status:
+      - test -d py-keyring-proxy-socket
+  clone_env:
+    cmds:
+      - git clone https://github.com/KalleDK/py-keyring-proxy-env.git
+    status:
+      - test -d py-keyring-proxy-env
+  clone_cli:
+    cmds:
+      - git clone https://github.com/KalleDK/py-keyring-proxy-cli.git
+    status:
+      - test -d py-keyring-proxy-cli
+  clone_proxy:
+    cmds:
+      - git clone https://github.com/KalleDK/py-keyring-proxy.git
+    status:
+      - test -d py-keyring-proxy
+  clone:
+    deps:
+      - clone_proxy
+      - clone_cli
+      - clone_env
+      - clone_socket
+      - clone_stdio
