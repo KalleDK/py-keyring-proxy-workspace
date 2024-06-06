@@ -25,6 +25,7 @@ tasks:
       - task: env:init
       - task: stdio:init
       - task: socket:init
+      - echo init done
   devrel:
     cmds:
       - task: proxy:update

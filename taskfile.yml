@@ -1,6 +1,10 @@
 version: '3'
 
 tasks:
+  default:
+    cmds:
+      - task: clone
+      - code keyring.code-workspace
   clone_stdio:
     cmds:
       - git clone https://github.com/KalleDK/py-keyring-proxy-stdio.git
