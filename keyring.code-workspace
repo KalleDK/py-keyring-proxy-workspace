@@ -2,7 +2,7 @@
 	"folders": [
 		{
 			"name": "Devcontainer",
-			"path": ".devcontainer"
+			"path": "."
 		},
 		{
 			"name": "Proxy",
@@ -24,7 +24,6 @@
 			"name": "StdioBackend",
 			"path": "py-keyring-proxy-stdio"
 		}
-		
 	],
 	"settings": {}
 }

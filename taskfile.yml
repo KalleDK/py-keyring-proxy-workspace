@@ -1,39 +1,97 @@
 version: '3'
 
+vars:
+  projects:
+    - name: proxy
+      url: https://github.com/KalleDK/py-keyring-proxy.git
+    - name: cli
+      url: https://github.com/KalleDK/py-keyring-proxy-cli.git
+    - name: env
+      url: https://github.com/KalleDK/py-keyring-proxy-env.git
+    - name: socket
+      url: https://github.com/KalleDK/py-keyring-proxy-socket.git
+    - name: stdio
+      url: https://github.com/KalleDK/py-keyring-proxy-stdio.git
+
+includes:
+  proxy:
+    taskfile: ./py-keyring-proxy/taskfile.yml
+    dir: ./py-keyring-proxy
+  cli:
+    taskfile: ./py-keyring-proxy-cli/taskfile.yml
+    dir: ./py-keyring-proxy-cli
+  env:
+    taskfile: ./py-keyring-proxy-env/taskfile.yml
+    dir: ./py-keyring-proxy-env
+  stdio:
+    taskfile: ./py-keyring-proxy-stdio/taskfile.yml
+    dir: ./py-keyring-proxy-stdio
+  socket:
+    taskfile: ./py-keyring-proxy-socket/taskfile.yml
+    dir: ./py-keyring-proxy-socket
+
 tasks:
+  clone_single:
+    cmds:
+      - echo "Cloning {{ .NAME }}"
+      - git clone {{ .URL }}
+    status:
+      - test -d {{ .URL | splitList "/" | last | splitList "." | first }}
+
+  clone:
+    cmds:
+      - for:
+          var: projects
+        task: clone_single
+        vars:
+          NAME: '{{.ITEM.name}}'
+          URL: '{{.ITEM.url}}'
+
+  update:
+    cmds:
+      - for: 
+          var: projects
+        task: '{{.ITEM}}:update'
+
+  init:
+    cmds:
+      - for: 
+          var: projects
+        task: '{{.ITEM.name}}:init'
+  
+  devrel_single:
+    cmds:
+      - task: '{{.NAME}}:update'
+      - task: '{{.NAME}}:devrel'
+
+  devrel:
+    cmds:
+      - for: 
+          var: projects
+        task: devrel_single
+        vars:
+          NAME: '{{.ITEM.name}}'
+    
+  release_single:
+    cmds:
+      - task: '{{.NAME}}:update'
+      - task: '{{.NAME}}:release'
+
+  release:
+    cmds:
+      - for: 
+          var: projects
+        task: release_single
+        vars:
+          NAME: '{{.ITEM.name}}'
+
+  sync:
+    cmds:
+      - for: 
+          var: projects
+        task: '{{.ITEM.name}}:sync'
+
   default:
     cmds:
       - task: clone
-      - code keyring.code-workspace
-  clone_stdio:
-    cmds:
-      - git clone https://github.com/KalleDK/py-keyring-proxy-stdio.git
-    status:
-      - test -d py-keyring-proxy-stdio
-  clone_socket:
-    cmds:
-      - git clone https://github.com/KalleDK/py-keyring-proxy-socket.git
-    status:
-      - test -d py-keyring-proxy-socket
-  clone_env:
-    cmds:
-      - git clone https://github.com/KalleDK/py-keyring-proxy-env.git
-    status:
-      - test -d py-keyring-proxy-env
-  clone_cli:
-    cmds:
-      - git clone https://github.com/KalleDK/py-keyring-proxy-cli.git
-    status:
-      - test -d py-keyring-proxy-cli
-  clone_proxy:
-    cmds:
-      - git clone https://github.com/KalleDK/py-keyring-proxy.git
-    status:
-      - test -d py-keyring-proxy
-  clone:
-    deps:
-      - clone_proxy
-      - clone_cli
-      - clone_env
-      - clone_socket
-      - clone_stdio
+  
