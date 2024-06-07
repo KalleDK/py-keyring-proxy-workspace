@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: '3'
 
 vars:
@@ -37,6 +38,7 @@ includes:
 
 tasks:
   clone_single:
+    internal: true
     cmds:
       - echo "Cloning {{ .NAME }}"
       - git clone {{ .URL }}
@@ -65,6 +67,7 @@ tasks:
         task: '{{.ITEM.name}}:init'
   
   devrel_single:
+    internal: true
     cmds:
       - task: '{{.NAME}}:update'
       - task: '{{.NAME}}:devrel'
@@ -78,6 +81,7 @@ tasks:
           NAME: '{{.ITEM.name}}'
     
   release_single:
+    internal: true
     cmds:
       - task: '{{.NAME}}:update'
       - task: '{{.NAME}}:release'

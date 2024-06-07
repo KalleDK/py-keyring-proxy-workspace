@@ -12,7 +12,8 @@
 				"ms-python.mypy-type-checker",
 				"task.vscode-task",
 				"tamasfe.even-better-toml",
-				"ryanluker.vscode-coverage-gutters"
+				"ryanluker.vscode-coverage-gutters",
+				"redhat.vscode-yaml"
 			]
 		}
 	},
