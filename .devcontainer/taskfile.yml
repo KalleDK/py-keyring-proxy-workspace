@@ -1,5 +1,13 @@
 version: '3'
 
+vars:
+  projects:
+    - proxy
+    - cli
+    - env
+    - socket
+    - stdio
+
 includes:
   proxy:
     taskfile: ../py-keyring-proxy/taskfile.yml
@@ -18,35 +26,40 @@ includes:
     dir: ../py-keyring-proxy-socket
 
 tasks:
+  update:
+    cmds:
+      - for: 
+          var: projects
+        task: '{{.ITEM}}:update'
+
   init:
     cmds:
-      - task: proxy:init
-      - task: cli:init
-      - task: env:init
-      - task: stdio:init
-      - task: socket:init
-      - echo init done
+      - for: 
+          var: projects
+        task: '{{.ITEM}}:init'
+  
+  devrel_single:
+    cmds:
+      - task: '{{.PROJECT}}:update'
+      - task: '{{.PROJECT}}:devrel'
+
   devrel:
     cmds:
-      - task: proxy:update
-      - task: proxy:devrel
-      - task: cli:update
-      - task: cli:devrel
-      - task: env:update
-      - task: env:devrel
-      - task: stdio:update
-      - task: stdio:devrel
-      - task: socket:update
-      - task: socket:devrel
+      - for: 
+          var: projects
+        task: devrel_single
+        vars:
+          PROJECT: '{{.ITEM}}'
+    
+  release_single:
+    cmds:
+      - task: '{{.PROJECT}}:update'
+      - task: '{{.PROJECT}}:release'
+
   release:
     cmds:
-      - task: proxy:update
-      - task: proxy:release
-      - task: cli:update
-      - task: cli:release
-      - task: env:update
-      - task: env:release
-      - task: stdio:update
-      - task: stdio:release
-      - task: socket:update
-      - task: socket:release
+      - for: 
+          var: projects
+        task: release_single
+        vars:
+          PROJECT: '{{.ITEM}}'
