@@ -17,18 +17,23 @@ includes:
   proxy:
     taskfile: ./py-keyring-proxy/taskfile.yml
     dir: ./py-keyring-proxy
+    optional: true
   cli:
     taskfile: ./py-keyring-proxy-cli/taskfile.yml
     dir: ./py-keyring-proxy-cli
+    optional: true
   env:
     taskfile: ./py-keyring-proxy-env/taskfile.yml
     dir: ./py-keyring-proxy-env
+    optional: true
   stdio:
     taskfile: ./py-keyring-proxy-stdio/taskfile.yml
     dir: ./py-keyring-proxy-stdio
+    optional: true
   socket:
     taskfile: ./py-keyring-proxy-socket/taskfile.yml
     dir: ./py-keyring-proxy-socket
+    optional: true
 
 tasks:
   clone_single:
