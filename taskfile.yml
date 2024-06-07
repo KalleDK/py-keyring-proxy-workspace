@@ -94,4 +94,5 @@ tasks:
   default:
     cmds:
       - task: clone
+      - code keyring.code-workspace
   
