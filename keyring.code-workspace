@@ -25,5 +25,7 @@
 			"path": "py-keyring-proxy-stdio"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"mypy-type-checker.importStrategy": "fromEnvironment",
+	}
 }
