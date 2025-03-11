@@ -37,6 +37,22 @@ includes:
     optional: true
 
 tasks:
+  pull_single:
+    internal: true
+    dir: '{{ .DIR }}'
+    cmds:
+      - echo "Pulling {{ .NAME }}"
+      - git pull
+  
+  pull:
+    cmds:
+      - for:
+          var: projects
+        task: pull_single
+        vars:
+          NAME: '{{.ITEM.name}}'
+          DIR: '{{ .ITEM.url | splitList "/" | last | splitList "." | first }}'
+    
   clone_single:
     internal: true
     cmds:
@@ -104,4 +120,4 @@ tasks:
     cmds:
       - task: clone
       - code keyring.code-workspace
-  
+
